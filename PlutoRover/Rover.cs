@@ -23,6 +23,10 @@ namespace PlutoRover
                         this.TurnLeft();
                         break;
 
+                    case Right:
+                        this.TurnRight();
+                        break;
+
                     case Forward:
                         this.position.yCoordinate += 1;
                         break;
@@ -50,6 +54,25 @@ namespace PlutoRover
                     break;
                 case West:
                     this.position.direction = South;
+                    break;
+            }
+        }
+
+        public void TurnRight()
+        {
+            switch (this.position.direction)
+            {
+                case North:
+                    this.position.direction = East;
+                    break;
+                case East:
+                    this.position.direction = South;
+                    break;
+                case South:
+                    this.position.direction = West;
+                    break;
+                case West:
+                    this.position.direction = North;
                     break;
             }
         }
