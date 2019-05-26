@@ -39,7 +39,7 @@ namespace PlutoRover
             return this.position;
         }
 
-        public void MoveForward()
+        private void MoveForward()
         {
             switch (this.position.direction)
             {
@@ -61,7 +61,7 @@ namespace PlutoRover
             }
         }
 
-        public void MoveBackward()
+        private void MoveBackward()
         {
             switch (this.position.direction)
             {
