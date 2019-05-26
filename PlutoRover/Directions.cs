@@ -1,5 +1,4 @@
-﻿using System;
-namespace PlutoRover
+﻿namespace PlutoRover
 {
     public static class Directions
     {

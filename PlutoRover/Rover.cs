@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using static PlutoRover.Commands;
 using static PlutoRover.Directions;
+using System.Linq;
 
 namespace PlutoRover
 {
@@ -30,107 +31,163 @@ namespace PlutoRover
                         break;
 
                     case Forward:
-                        this.MoveForward();
+                        Position positionForward = this.PositionForward();
+                        if (this.ObstacleIsInPath(positionForward))
+                        {
+                            return this.position;
+                        }
+
+                        this.SetNewPosition(positionForward);
                         break;
 
                     case Backward:
-                        this.MoveBackward();
+                        Position positionBackward = this.PositionBackward();
+                        if (this.ObstacleIsInPath(positionBackward))
+                        {
+                            return this.position;
+                        }
+
+                        this.SetNewPosition(positionBackward);
                         break;
                 }
             }
             return this.position;
         }
 
-        private void MoveForward()
+        private void SetNewPosition(Position newPosition)
         {
+            this.position = newPosition;
+        }
+
+        private bool ObstacleIsInPath(Position positionAhead)
+        {
+            if (grid.obstacles == null)
+            {
+                return false;
+            }
+
+            var obstacleInPath = this.grid.obstacles.FirstOrDefault(x =>
+                x.xValue == positionAhead.xCoordinate &&
+                x.yValue == positionAhead.yCoordinate);
+
+            if (obstacleInPath != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private Position PositionForward()
+        {
+            Position positionAhead = null;
             switch (this.position.direction)
             {
                 case North:
-                    this.MoveNorth();
+                    positionAhead = this.PositionNorth();
                     break;
 
                 case East:
-                    this.MoveEast();
+                    positionAhead = this.PositionEast();
                     break;
 
                 case South:
-                    this.MoveSouth();
+                    positionAhead = this.PositionSouth();
                     break;
 
                 case West:
-                    this.MoveWest();
+                    positionAhead = this.PositionWest();
                     break;
             }
+            return positionAhead;
         }
 
-        private void MoveBackward()
+        private Position PositionBackward()
         {
+            Position positionAhead = null;
             switch (this.position.direction)
             {
                 case North:
-                    this.MoveSouth();
+                    positionAhead = this.PositionSouth();
                     break;
 
                 case East:
-                    this.MoveWest();
+                    positionAhead = this.PositionWest();
                     break;
 
                 case South:
-                    this.MoveNorth();
+                    positionAhead = this.PositionNorth();
                     break;
 
                 case West:
-                    this.MoveEast();
+                    positionAhead = this.PositionEast();
                     break;
             }
+            return positionAhead;
         }
 
-        private void MoveNorth()
+        private Position PositionNorth()
         {
+            var newPosition = this.position.Clone();
+
             if (this.position.yCoordinate + 1 > this.grid.yBoundary)
             {
-                this.position.yCoordinate = 0;
+                newPosition.yCoordinate = 0;
             }
             else
             {
-                this.position.yCoordinate += 1;
+                newPosition.yCoordinate = this.position.yCoordinate + 1;
             }
-        }   
 
-        private void MoveEast()
+            return newPosition;
+        }
+
+        private Position PositionEast()
         {
+            var newPosition = this.position.Clone();
+
             if (this.position.xCoordinate + 1 > this.grid.xBoundary)
             {
-                this.position.xCoordinate = 0;
+                newPosition.xCoordinate = 0;
             }
             else
             {
-                this.position.xCoordinate += 1;
+                newPosition.xCoordinate = this.position.xCoordinate + 1;
             }
+
+            return newPosition;
         }
 
-        private void MoveSouth()
+        private Position PositionSouth()
         {
+            var newPosition = this.position;
+
             if (this.position.yCoordinate - 1 < 0)
             {
-                this.position.yCoordinate = this.grid.yBoundary;
+                newPosition.yCoordinate = this.grid.yBoundary;
             }
             else
             {
-                this.position.yCoordinate -= 1;
+                newPosition.yCoordinate = this.position.yCoordinate - 1;
             }
+
+            return newPosition;
         }
 
-        private void MoveWest()
+        private Position PositionWest()
         {
+            var newPosition = this.position;
+
             if (this.position.xCoordinate - 1 < 0)
             {
-                this.position.xCoordinate = this.grid.xBoundary;
+                newPosition.xCoordinate = this.grid.xBoundary;
             }
             else
             {
-                this.position.xCoordinate -= 1;
+                newPosition.xCoordinate = this.position.xCoordinate - 1;
             }
+
+            return newPosition;
         }
 
         private void TurnLeft()

@@ -146,5 +146,25 @@ namespace PlutoRover.Tests
             Assert.Equal(250, position.yCoordinate);
             Assert.Equal(West, position.direction);
         }
+
+        [Fact]
+        public void Rover_Stops_When_An_Obstacle_Is_Found()
+        {
+            var startingPosition = new Position(0, 0, North);
+            var obstacles = new List<Coordinates>
+            {
+                new Coordinates(2,2)
+            };
+
+            var grid = new Grid(250, 250, obstacles);
+
+            var rover = new Rover(startingPosition, grid);
+
+            var position = rover.Move(new List<string> { Right, Forward, Forward, Left, Forward, Forward, Forward });
+
+            Assert.Equal(1, position.yCoordinate);
+            Assert.Equal(2, position.xCoordinate);
+            Assert.Equal(North, position.direction);
+        }
     }
 }

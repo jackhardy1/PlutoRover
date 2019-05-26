@@ -1,5 +1,4 @@
-﻿using System;
-namespace PlutoRover
+﻿namespace PlutoRover
 {
     public class Position
     {
@@ -9,11 +8,11 @@ namespace PlutoRover
 
         public string direction { get; set; }
 
-        public Position(int yCoordinate, int xCoordinate, string direction)
+        public Position(int _yCoordinate, int _xCoordinate, string _direction)
         {
-            this.yCoordinate = yCoordinate;
-            this.xCoordinate = xCoordinate;
-            this.direction = direction;
+            this.yCoordinate = _yCoordinate;
+            this.xCoordinate = _xCoordinate;
+            this.direction = _direction;
         }
     }
 }
