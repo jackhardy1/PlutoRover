@@ -28,18 +28,62 @@ namespace PlutoRover
                         break;
 
                     case Forward:
-                        this.position.yCoordinate += 1;
+                        this.MoveForward();
                         break;
 
                     case Backward:
-                        this.position.yCoordinate -= 1;
+                        this.MoveBackward();
                         break;
                 }
             }
             return this.position;
         }
 
-        public void TurnLeft()
+        public void MoveForward()
+        {
+            switch (this.position.direction)
+            {
+                case North:
+                    this.position.yCoordinate += 1;
+                    break;
+
+                case East:
+                    this.position.xCoordinate += 1;
+                    break;
+
+                case South:
+                    this.position.yCoordinate -= 1;
+                    break;
+
+                case West:
+                    this.position.xCoordinate -= 1;
+                    break;
+            }
+        }
+
+        public void MoveBackward()
+        {
+            switch (this.position.direction)
+            {
+                case North:
+                    this.position.yCoordinate -= 1;
+                    break;
+
+                case East:
+                    this.position.xCoordinate -= 1;
+                    break;
+
+                case South:
+                    this.position.yCoordinate += 1;
+                    break;
+
+                case West:
+                    this.position.xCoordinate += 1;
+                    break;
+            }
+        }
+
+        private void TurnLeft()
         {
             switch (this.position.direction)
             {
@@ -58,7 +102,7 @@ namespace PlutoRover
             }
         }
 
-        public void TurnRight()
+        private void TurnRight()
         {
             switch (this.position.direction)
             {

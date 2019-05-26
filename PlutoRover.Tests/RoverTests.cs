@@ -17,8 +17,8 @@ namespace PlutoRover.Tests
 
             var position = rover.Move(new List<string> { Forward });
 
-            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(1, position.yCoordinate);
+            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(North, position.direction);
         }
 
@@ -56,8 +56,8 @@ namespace PlutoRover.Tests
 
             var position = rover.Move(new List<string> { Left });
 
-            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(0, position.yCoordinate);
+            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(West, position.direction);
         }
 
@@ -69,8 +69,8 @@ namespace PlutoRover.Tests
 
             var position = rover.Move(new List<string> { Left, Left, Left });
 
-            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(0, position.yCoordinate);
+            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(East, position.direction);
         }
 
@@ -82,8 +82,8 @@ namespace PlutoRover.Tests
 
             var position = rover.Move(new List<string> { Right });
 
-            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(0, position.yCoordinate);
+            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(East, position.direction);
         }
 
@@ -95,9 +95,22 @@ namespace PlutoRover.Tests
 
             var position = rover.Move(new List<string> { Right, Right, Right });
 
-            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(0, position.yCoordinate);
+            Assert.Equal(0, position.xCoordinate);
             Assert.Equal(West, position.direction);
+        }
+
+        [Fact]
+        public void Rover_Can_Turn_And_Move_In_Different_Direction()
+        {
+            var startingPosition = new Position(0, 0, North);
+            var rover = new Rover(startingPosition);
+
+            var position = rover.Move(new List<string> { Forward, Forward, Forward, Right, Forward, Forward, Right, Backward, Backward });
+
+            Assert.Equal(5, position.yCoordinate);
+            Assert.Equal(2, position.xCoordinate);
+            Assert.Equal(South, position.direction);
         }
     }
 }
