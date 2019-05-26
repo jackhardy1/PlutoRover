@@ -7,10 +7,12 @@ namespace PlutoRover
     public class Rover
     {
         private Position position { get; set; }
+        private Grid grid { get; set; }
 
-        public Rover(Position _position)
+        public Rover(Position _position, Grid _grid)
         {
             this.position = _position;
+            this.grid = _grid;
         }
 
         public Position Move(IList<string> commands)
@@ -44,19 +46,19 @@ namespace PlutoRover
             switch (this.position.direction)
             {
                 case North:
-                    this.position.yCoordinate += 1;
+                    this.MoveNorth();
                     break;
 
                 case East:
-                    this.position.xCoordinate += 1;
+                    this.MoveEast();
                     break;
 
                 case South:
-                    this.position.yCoordinate -= 1;
+                    this.MoveSouth();
                     break;
 
                 case West:
-                    this.position.xCoordinate -= 1;
+                    this.MoveWest();
                     break;
             }
         }
@@ -66,20 +68,68 @@ namespace PlutoRover
             switch (this.position.direction)
             {
                 case North:
-                    this.position.yCoordinate -= 1;
+                    this.MoveSouth();
                     break;
 
                 case East:
-                    this.position.xCoordinate -= 1;
+                    this.MoveWest();
                     break;
 
                 case South:
-                    this.position.yCoordinate += 1;
+                    this.MoveNorth();
                     break;
 
                 case West:
-                    this.position.xCoordinate += 1;
+                    this.MoveEast();
                     break;
+            }
+        }
+
+        private void MoveNorth()
+        {
+            if (this.position.yCoordinate + 1 > this.grid.yBoundary)
+            {
+                this.position.yCoordinate = 0;
+            }
+            else
+            {
+                this.position.yCoordinate += 1;
+            }
+        }   
+
+        private void MoveEast()
+        {
+            if (this.position.xCoordinate + 1 > this.grid.xBoundary)
+            {
+                this.position.xCoordinate = 0;
+            }
+            else
+            {
+                this.position.xCoordinate += 1;
+            }
+        }
+
+        private void MoveSouth()
+        {
+            if (this.position.yCoordinate - 1 < 0)
+            {
+                this.position.yCoordinate = this.grid.yBoundary;
+            }
+            else
+            {
+                this.position.yCoordinate -= 1;
+            }
+        }
+
+        private void MoveWest()
+        {
+            if (this.position.xCoordinate - 1 < 0)
+            {
+                this.position.xCoordinate = this.grid.xBoundary;
+            }
+            else
+            {
+                this.position.xCoordinate -= 1;
             }
         }
 
