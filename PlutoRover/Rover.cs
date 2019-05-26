@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using static PlutoRover.Commands;
+using static PlutoRover.Directions;
 
 namespace PlutoRover
 {
@@ -18,6 +19,10 @@ namespace PlutoRover
             {
                 switch (command)
                 {
+                    case Left:
+                        this.TurnLeft();
+                        break;
+
                     case Forward:
                         this.position.yCoordinate += 1;
                         break;
@@ -28,6 +33,25 @@ namespace PlutoRover
                 }
             }
             return this.position;
+        }
+
+        public void TurnLeft()
+        {
+            switch (this.position.direction)
+            {
+                case North:
+                    this.position.direction = West;
+                    break;
+                case East:
+                    this.position.direction = North;
+                    break;
+                case South:
+                    this.position.direction = East;
+                    break;
+                case West:
+                    this.position.direction = South;
+                    break;
+            }
         }
     }
 }

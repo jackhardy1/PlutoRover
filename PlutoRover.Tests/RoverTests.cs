@@ -47,5 +47,31 @@ namespace PlutoRover.Tests
             Assert.Equal(0, position.xCoordinate);
             Assert.Equal(North, position.direction);
         }
+
+        [Fact]
+        public void Rover_Can_Turn_Left()
+        {
+            var startingPosition = new Position(0, 0, North);
+            var rover = new Rover(startingPosition);
+
+            var position = rover.Move(new List<string> { Left });
+
+            Assert.Equal(0, position.xCoordinate);
+            Assert.Equal(0, position.yCoordinate);
+            Assert.Equal(West, position.direction);
+        }
+
+        [Fact]
+        public void Rover_Can_Turn_Left_Multiple_Times()
+        {
+            var startingPosition = new Position(0, 0, North);
+            var rover = new Rover(startingPosition);
+
+            var position = rover.Move(new List<string> { Left, Left, Left });
+
+            Assert.Equal(0, position.xCoordinate);
+            Assert.Equal(0, position.yCoordinate);
+            Assert.Equal(East, position.direction);
+        }
     }
 }
