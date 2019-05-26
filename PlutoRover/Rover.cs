@@ -21,6 +21,10 @@ namespace PlutoRover
                     case Forward:
                         this.position.yCoordinate += 1;
                         break;
+
+                    case Backward:
+                        this.position.yCoordinate -= 1;
+                        break;
                 }
             }
             return this.position;
