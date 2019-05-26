@@ -9,6 +9,7 @@ namespace PlutoRover
     {
         private Position position { get; set; }
         private Grid grid { get; set; }
+        public string obstacleMessage { get; set; }
 
         public Rover(Position _position, Grid _grid)
         {
@@ -16,7 +17,7 @@ namespace PlutoRover
             this.grid = _grid;
         }
 
-        public Position Move(IList<string> commands)
+        public Report Move(IList<string> commands)
         {
             foreach (string command in commands)
             {
@@ -34,7 +35,7 @@ namespace PlutoRover
                         Position positionForward = this.PositionForward();
                         if (this.ObstacleIsInPath(positionForward))
                         {
-                            return this.position;
+                            return this.ReportObstacle(positionForward);
                         }
 
                         this.SetNewPosition(positionForward);
@@ -44,14 +45,28 @@ namespace PlutoRover
                         Position positionBackward = this.PositionBackward();
                         if (this.ObstacleIsInPath(positionBackward))
                         {
-                            return this.position;
+                            return this.ReportObstacle(positionBackward);
                         }
 
                         this.SetNewPosition(positionBackward);
                         break;
                 }
             }
-            return this.position;
+            return new Report {
+                FinalPosition = this.position,
+                EncounteredObstacle = false,
+                ReportMessage = "Successfully carried out all commands"
+            };
+        }
+
+        private Report ReportObstacle(Position positionOfObstacle) 
+        {
+            return new Report
+            {
+                FinalPosition = this.position,
+                EncounteredObstacle = true,
+                ReportMessage = $"An obstacle was encountered at position: X {positionOfObstacle.xCoordinate}, Y {positionOfObstacle.yCoordinate}"
+            };
         }
 
         private void SetNewPosition(Position newPosition)

@@ -14,11 +14,11 @@ namespace PlutoRover.Tests
             var pluto = new Grid(10, 10);
             var rover = new Rover(startingPosition, pluto);
 
-            var position = rover.Move(new List<string> { Forward });
+            var report = rover.Move(new List<string> { Forward });
 
-            Assert.Equal(1, position.yCoordinate);
-            Assert.Equal(0, position.xCoordinate);
-            Assert.Equal(North, position.direction);
+            Assert.Equal(1, report.FinalPosition.yCoordinate);
+            Assert.Equal(0, report.FinalPosition.xCoordinate);
+            Assert.Equal(North, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -28,11 +28,11 @@ namespace PlutoRover.Tests
             var pluto = new Grid(10, 10);
             var rover = new Rover(startingPosition, pluto);
 
-            var position = rover.Move(new List<string> { Backward });
+            var report = rover.Move(new List<string> { Backward });
 
-            Assert.Equal(0, position.yCoordinate);
-            Assert.Equal(0, position.xCoordinate);
-            Assert.Equal(North, position.direction);
+            Assert.Equal(0, report.FinalPosition.yCoordinate);
+            Assert.Equal(0, report.FinalPosition.xCoordinate);
+            Assert.Equal(North, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -42,11 +42,11 @@ namespace PlutoRover.Tests
             var pluto = new Grid(10, 10);
             var rover = new Rover(startingPosition, pluto);
 
-            var position = rover.Move(new List<string> { Forward, Forward, Forward, Forward, Backward, Backward });
+            var report = rover.Move(new List<string> { Forward, Forward, Forward, Forward, Backward, Backward });
 
-            Assert.Equal(2, position.yCoordinate);
-            Assert.Equal(0, position.xCoordinate);
-            Assert.Equal(North, position.direction);
+            Assert.Equal(2, report.FinalPosition.yCoordinate);
+            Assert.Equal(0, report.FinalPosition.xCoordinate);
+            Assert.Equal(North, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -56,11 +56,11 @@ namespace PlutoRover.Tests
             var pluto = new Grid(10, 10);
             var rover = new Rover(startingPosition, pluto);
 
-            var position = rover.Move(new List<string> { Left });
+            var report = rover.Move(new List<string> { Left });
 
-            Assert.Equal(0, position.yCoordinate);
-            Assert.Equal(0, position.xCoordinate);
-            Assert.Equal(West, position.direction);
+            Assert.Equal(0, report.FinalPosition.yCoordinate);
+            Assert.Equal(0, report.FinalPosition.xCoordinate);
+            Assert.Equal(West, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -70,11 +70,11 @@ namespace PlutoRover.Tests
             var pluto = new Grid(10, 10);
             var rover = new Rover(startingPosition, pluto);
 
-            var position = rover.Move(new List<string> { Left, Left, Left });
+            var report = rover.Move(new List<string> { Left, Left, Left });
 
-            Assert.Equal(0, position.yCoordinate);
-            Assert.Equal(0, position.xCoordinate);
-            Assert.Equal(East, position.direction);
+            Assert.Equal(0, report.FinalPosition.yCoordinate);
+            Assert.Equal(0, report.FinalPosition.xCoordinate);
+            Assert.Equal(East, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -84,11 +84,11 @@ namespace PlutoRover.Tests
             var pluto = new Grid(10, 10);
             var rover = new Rover(startingPosition, pluto);
 
-            var position = rover.Move(new List<string> { Right });
+            var report = rover.Move(new List<string> { Right });
 
-            Assert.Equal(0, position.yCoordinate);
-            Assert.Equal(0, position.xCoordinate);
-            Assert.Equal(East, position.direction);
+            Assert.Equal(0, report.FinalPosition.yCoordinate);
+            Assert.Equal(0, report.FinalPosition.xCoordinate);
+            Assert.Equal(East, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -98,11 +98,11 @@ namespace PlutoRover.Tests
             var pluto = new Grid(10, 10);
             var rover = new Rover(startingPosition, pluto);
 
-            var position = rover.Move(new List<string> { Right, Right, Right });
+            var report = rover.Move(new List<string> { Right, Right, Right });
 
-            Assert.Equal(0, position.yCoordinate);
-            Assert.Equal(0, position.xCoordinate);
-            Assert.Equal(West, position.direction);
+            Assert.Equal(0, report.FinalPosition.yCoordinate);
+            Assert.Equal(0, report.FinalPosition.xCoordinate);
+            Assert.Equal(West, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -112,11 +112,11 @@ namespace PlutoRover.Tests
             var pluto = new Grid(10, 10);
             var rover = new Rover(startingPosition, pluto);
 
-            var position = rover.Move(new List<string> { Forward, Forward, Forward, Right, Forward, Forward, Right, Backward, Backward });
+            var report = rover.Move(new List<string> { Forward, Forward, Forward, Right, Forward, Forward, Right, Backward, Backward });
 
-            Assert.Equal(5, position.yCoordinate);
-            Assert.Equal(2, position.xCoordinate);
-            Assert.Equal(South, position.direction);
+            Assert.Equal(5, report.FinalPosition.yCoordinate);
+            Assert.Equal(2, report.FinalPosition.xCoordinate);
+            Assert.Equal(South, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -126,11 +126,11 @@ namespace PlutoRover.Tests
             var pluto = new Grid(100, 100);
             var rover = new Rover(startingPosition, pluto);
 
-            var position = rover.Move(new List<string> { Backward });
+            var report = rover.Move(new List<string> { Backward });
 
-            Assert.Equal(0, position.xCoordinate);
-            Assert.Equal(100, position.yCoordinate);
-            Assert.Equal(North, position.direction);
+            Assert.Equal(0, report.FinalPosition.xCoordinate);
+            Assert.Equal(100, report.FinalPosition.yCoordinate);
+            Assert.Equal(North, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -140,11 +140,11 @@ namespace PlutoRover.Tests
             var grid = new Grid(250, 250);
             var rover = new Rover(startingPosition, grid);
 
-            var position = rover.Move(new List<string> { Backward, Left, Forward });
+            var report = rover.Move(new List<string> { Backward, Left, Forward });
 
-            Assert.Equal(250, position.xCoordinate);
-            Assert.Equal(250, position.yCoordinate);
-            Assert.Equal(West, position.direction);
+            Assert.Equal(250, report.FinalPosition.xCoordinate);
+            Assert.Equal(250, report.FinalPosition.yCoordinate);
+            Assert.Equal(West, report.FinalPosition.direction);
         }
 
         [Fact]
@@ -160,11 +160,11 @@ namespace PlutoRover.Tests
 
             var rover = new Rover(startingPosition, grid);
 
-            var position = rover.Move(new List<string> { Right, Forward, Forward, Left, Forward, Forward, Forward });
+            var report = rover.Move(new List<string> { Right, Forward, Forward, Left, Forward, Forward, Forward });
 
-            Assert.Equal(1, position.yCoordinate);
-            Assert.Equal(2, position.xCoordinate);
-            Assert.Equal(North, position.direction);
+            Assert.Equal(1, report.FinalPosition.yCoordinate);
+            Assert.Equal(2, report.FinalPosition.xCoordinate);
+            Assert.Equal(North, report.FinalPosition.direction);
         }
     }
 }
