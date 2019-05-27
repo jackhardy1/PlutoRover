@@ -31,7 +31,7 @@ namespace PlutoRover
                         break;
 
                     case Forward:
-                        Position positionForward = this.PositionForward();
+                        Position positionForward = this.PositionAhead();
                         if (this.ObstacleIsInPath(positionForward))
                         {
                             return this.ReportObstacle(positionForward);
@@ -41,7 +41,7 @@ namespace PlutoRover
                         break;
 
                     case Backward:
-                        Position positionBackward = this.PositionBackward();
+                        Position positionBackward = this.PositionAhead(false);
                         if (this.ObstacleIsInPath(positionBackward))
                         {
                             return this.ReportObstacle(positionBackward);
@@ -92,49 +92,25 @@ namespace PlutoRover
             return false;
         }
 
-        private Position PositionForward()
+        private Position PositionAhead(bool facingForward = true)
         {
             Position positionAhead = null;
             switch (this.Position.Direction)
             {
                 case North:
-                    positionAhead = this.PositionNorth();
+                    positionAhead = facingForward ? this.PositionNorth() : this.PositionSouth();
                     break;
 
                 case East:
-                    positionAhead = this.PositionEast();
+                    positionAhead = facingForward ? this.PositionEast() : this.PositionWest();
                     break;
 
                 case South:
-                    positionAhead = this.PositionSouth();
+                    positionAhead = facingForward ? this.PositionSouth() : this.PositionNorth();
                     break;
 
                 case West:
-                    positionAhead = this.PositionWest();
-                    break;
-            }
-            return positionAhead;
-        }
-
-        private Position PositionBackward()
-        {
-            Position positionAhead = null;
-            switch (this.Position.Direction)
-            {
-                case North:
-                    positionAhead = this.PositionSouth();
-                    break;
-
-                case East:
-                    positionAhead = this.PositionWest();
-                    break;
-
-                case South:
-                    positionAhead = this.PositionNorth();
-                    break;
-
-                case West:
-                    positionAhead = this.PositionEast();
+                    positionAhead = facingForward ? this.PositionWest() : this.PositionEast();
                     break;
             }
             return positionAhead;
@@ -174,7 +150,7 @@ namespace PlutoRover
 
         private Position PositionSouth()
         {
-            var newPosition = this.Position;
+            var newPosition = this.Position.Clone();
 
             if (this.Position.YCoordinate - 1 < 0)
             {
@@ -190,7 +166,7 @@ namespace PlutoRover
 
         private Position PositionWest()
         {
-            var newPosition = this.Position;
+            var newPosition = this.Position.Clone();
 
             if (this.Position.XCoordinate - 1 < 0)
             {
