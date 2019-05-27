@@ -27,9 +27,10 @@ namespace PlutoRover.API.Tests
 
             Report report = this.GetReport(requestBody);
 
-            Assert.Equal(1, report.FinalPosition.yCoordinate);
-            Assert.Equal(3, report.FinalPosition.xCoordinate);
-            Assert.Equal(North, report.FinalPosition.direction);
+            Position expectedPosition = new Position(1, 3, North);
+
+            this.AssertPositionIsCorrect(expectedPosition, report.FinalPosition);
+
             Assert.False(report.EncounteredObstacle);
             Assert.Equal("Successfully carried out all commands", report.Message);
         }
@@ -51,9 +52,10 @@ namespace PlutoRover.API.Tests
 
             Report report = this.GetReport(requestBody);
 
-            Assert.Equal(1, report.FinalPosition.yCoordinate);
-            Assert.Equal(0, report.FinalPosition.xCoordinate);
-            Assert.Equal(East, report.FinalPosition.direction);
+            Position expectedPosition = new Position(1, 0, East);
+
+            this.AssertPositionIsCorrect(expectedPosition, report.FinalPosition);
+
             Assert.True(report.EncounteredObstacle);
             Assert.Equal("An obstacle was encountered at position: X 1, Y 1", report.Message);
         }
@@ -69,6 +71,13 @@ namespace PlutoRover.API.Tests
             Report report = JsonConvert.DeserializeObject<Report>(content);
 
             return report;
+        }
+
+        private void AssertPositionIsCorrect(Position expected, Position actual)
+        {
+            Assert.Equal(expected.YCoordinate, actual.YCoordinate);
+            Assert.Equal(expected.XCoordinate, actual.XCoordinate);
+            Assert.Equal(expected.Direction, actual.Direction);
         }
     }
 }

@@ -4,7 +4,7 @@
     {
         public static Position Clone(this Position positionToClone)
         {
-            return new Position(positionToClone.yCoordinate, positionToClone.xCoordinate, positionToClone.direction);
+            return new Position(positionToClone.YCoordinate, positionToClone.XCoordinate, positionToClone.Direction);
         }
     }
 }

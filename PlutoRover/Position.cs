@@ -2,17 +2,17 @@
 {
     public class Position
     {
-        public int yCoordinate { get; set; }
+        public int YCoordinate { get; set; }
 
-        public int xCoordinate { get; set; }
+        public int XCoordinate { get; set; }
 
-        public string direction { get; set; }
+        public string Direction { get; set; }
 
         public Position(int _yCoordinate, int _xCoordinate, string _direction)
         {
-            this.yCoordinate = _yCoordinate;
-            this.xCoordinate = _xCoordinate;
-            this.direction = _direction;
+            this.YCoordinate = _yCoordinate;
+            this.XCoordinate = _xCoordinate;
+            this.Direction = _direction;
         }
     }
 }

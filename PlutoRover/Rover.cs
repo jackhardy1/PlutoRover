@@ -7,14 +7,13 @@ namespace PlutoRover
 {
     public class Rover
     {
-        private Position position { get; set; }
-        private Grid grid { get; set; }
-        public string obstacleMessage { get; set; }
+        private Position Position { get; set; }
+        private Grid Grid { get; set; }
 
         public Rover(Position _position, Grid _grid)
         {
-            this.position = _position;
-            this.grid = _grid;
+            this.Position = _position;
+            this.Grid = _grid;
         }
 
         public Report Move(IList<string> commands)
@@ -53,7 +52,7 @@ namespace PlutoRover
                 }
             }
             return new Report {
-                FinalPosition = this.position,
+                FinalPosition = this.Position,
                 EncounteredObstacle = false,
                 Message = "Successfully carried out all commands"
             };
@@ -63,27 +62,27 @@ namespace PlutoRover
         {
             return new Report
             {
-                FinalPosition = this.position,
+                FinalPosition = this.Position,
                 EncounteredObstacle = true,
-                Message = $"An obstacle was encountered at position: X {positionOfObstacle.xCoordinate}, Y {positionOfObstacle.yCoordinate}"
+                Message = $"An obstacle was encountered at position: X {positionOfObstacle.XCoordinate}, Y {positionOfObstacle.YCoordinate}"
             };
         }
 
         private void SetNewPosition(Position newPosition)
         {
-            this.position = newPosition;
+            this.Position = newPosition;
         }
 
         private bool ObstacleIsInPath(Position positionAhead)
         {
-            if (grid.obstacles == null)
+            if (this.Grid.Obstacles == null)
             {
                 return false;
             }
 
-            var obstacleInPath = this.grid.obstacles.FirstOrDefault(x =>
-                x.xValue == positionAhead.xCoordinate &&
-                x.yValue == positionAhead.yCoordinate);
+            var obstacleInPath = this.Grid.Obstacles.FirstOrDefault(x =>
+                x.XValue == positionAhead.XCoordinate &&
+                x.YValue == positionAhead.YCoordinate);
 
             if (obstacleInPath != null)
             {
@@ -96,7 +95,7 @@ namespace PlutoRover
         private Position PositionForward()
         {
             Position positionAhead = null;
-            switch (this.position.direction)
+            switch (this.Position.Direction)
             {
                 case North:
                     positionAhead = this.PositionNorth();
@@ -120,7 +119,7 @@ namespace PlutoRover
         private Position PositionBackward()
         {
             Position positionAhead = null;
-            switch (this.position.direction)
+            switch (this.Position.Direction)
             {
                 case North:
                     positionAhead = this.PositionSouth();
@@ -143,15 +142,15 @@ namespace PlutoRover
 
         private Position PositionNorth()
         {
-            var newPosition = this.position.Clone();
+            var newPosition = this.Position.Clone();
 
-            if (this.position.yCoordinate + 1 > this.grid.yBoundary)
+            if (this.Position.YCoordinate + 1 > this.Grid.YBoundary)
             {
-                newPosition.yCoordinate = 0;
+                newPosition.YCoordinate = 0;
             }
             else
             {
-                newPosition.yCoordinate = this.position.yCoordinate + 1;
+                newPosition.YCoordinate = this.Position.YCoordinate + 1;
             }
 
             return newPosition;
@@ -159,15 +158,15 @@ namespace PlutoRover
 
         private Position PositionEast()
         {
-            var newPosition = this.position.Clone();
+            var newPosition = this.Position.Clone();
 
-            if (this.position.xCoordinate + 1 > this.grid.xBoundary)
+            if (this.Position.XCoordinate + 1 > this.Grid.XBoundary)
             {
-                newPosition.xCoordinate = 0;
+                newPosition.XCoordinate = 0;
             }
             else
             {
-                newPosition.xCoordinate = this.position.xCoordinate + 1;
+                newPosition.XCoordinate = this.Position.XCoordinate + 1;
             }
 
             return newPosition;
@@ -175,15 +174,15 @@ namespace PlutoRover
 
         private Position PositionSouth()
         {
-            var newPosition = this.position;
+            var newPosition = this.Position;
 
-            if (this.position.yCoordinate - 1 < 0)
+            if (this.Position.YCoordinate - 1 < 0)
             {
-                newPosition.yCoordinate = this.grid.yBoundary;
+                newPosition.YCoordinate = this.Grid.YBoundary;
             }
             else
             {
-                newPosition.yCoordinate = this.position.yCoordinate - 1;
+                newPosition.YCoordinate = this.Position.YCoordinate - 1;
             }
 
             return newPosition;
@@ -191,15 +190,15 @@ namespace PlutoRover
 
         private Position PositionWest()
         {
-            var newPosition = this.position;
+            var newPosition = this.Position;
 
-            if (this.position.xCoordinate - 1 < 0)
+            if (this.Position.XCoordinate - 1 < 0)
             {
-                newPosition.xCoordinate = this.grid.xBoundary;
+                newPosition.XCoordinate = this.Grid.XBoundary;
             }
             else
             {
-                newPosition.xCoordinate = this.position.xCoordinate - 1;
+                newPosition.XCoordinate = this.Position.XCoordinate - 1;
             }
 
             return newPosition;
@@ -207,38 +206,38 @@ namespace PlutoRover
 
         private void TurnLeft()
         {
-            switch (this.position.direction)
+            switch (this.Position.Direction)
             {
                 case North:
-                    this.position.direction = West;
+                    this.Position.Direction = West;
                     break;
                 case East:
-                    this.position.direction = North;
+                    this.Position.Direction = North;
                     break;
                 case South:
-                    this.position.direction = East;
+                    this.Position.Direction = East;
                     break;
                 case West:
-                    this.position.direction = South;
+                    this.Position.Direction = South;
                     break;
             }
         }
 
         private void TurnRight()
         {
-            switch (this.position.direction)
+            switch (this.Position.Direction)
             {
                 case North:
-                    this.position.direction = East;
+                    this.Position.Direction = East;
                     break;
                 case East:
-                    this.position.direction = South;
+                    this.Position.Direction = South;
                     break;
                 case South:
-                    this.position.direction = West;
+                    this.Position.Direction = West;
                     break;
                 case West:
-                    this.position.direction = North;
+                    this.Position.Direction = North;
                     break;
             }
         }
