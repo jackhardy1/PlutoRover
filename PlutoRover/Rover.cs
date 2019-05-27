@@ -92,25 +92,25 @@ namespace PlutoRover
             return false;
         }
 
-        private Position PositionAhead(bool facingForward = true)
+        private Position PositionAhead(bool headingForward = true)
         {
             Position positionAhead = null;
             switch (this.Position.Direction)
             {
                 case North:
-                    positionAhead = facingForward ? this.PositionNorth() : this.PositionSouth();
+                    positionAhead = headingForward ? this.PositionNorth() : this.PositionSouth();
                     break;
 
                 case East:
-                    positionAhead = facingForward ? this.PositionEast() : this.PositionWest();
+                    positionAhead = headingForward ? this.PositionEast() : this.PositionWest();
                     break;
 
                 case South:
-                    positionAhead = facingForward ? this.PositionSouth() : this.PositionNorth();
+                    positionAhead = headingForward ? this.PositionSouth() : this.PositionNorth();
                     break;
 
                 case West:
-                    positionAhead = facingForward ? this.PositionWest() : this.PositionEast();
+                    positionAhead = headingForward ? this.PositionWest() : this.PositionEast();
                     break;
             }
             return positionAhead;
