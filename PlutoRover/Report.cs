@@ -6,6 +6,6 @@
 
         public bool EncounteredObstacle { get; set; }
 
-        public string ReportMessage { get; set; }
+        public string Message { get; set; }
     }
 }

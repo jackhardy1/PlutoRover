@@ -55,7 +55,7 @@ namespace PlutoRover
             return new Report {
                 FinalPosition = this.position,
                 EncounteredObstacle = false,
-                ReportMessage = "Successfully carried out all commands"
+                Message = "Successfully carried out all commands"
             };
         }
 
@@ -65,7 +65,7 @@ namespace PlutoRover
             {
                 FinalPosition = this.position,
                 EncounteredObstacle = true,
-                ReportMessage = $"An obstacle was encountered at position: X {positionOfObstacle.xCoordinate}, Y {positionOfObstacle.yCoordinate}"
+                Message = $"An obstacle was encountered at position: X {positionOfObstacle.xCoordinate}, Y {positionOfObstacle.yCoordinate}"
             };
         }
 
