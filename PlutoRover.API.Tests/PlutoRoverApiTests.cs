@@ -82,6 +82,28 @@ namespace PlutoRover.API.Tests
             Assert.Equal(500, (int)response.StatusCode);
         }
 
+        [Fact]
+        public void Unknown_Direction_Will_Throw_An_Exception()
+        {
+            var position = new Position(0, 0, "Z");
+            var grid = new Grid(100, 100);
+            var commands = new List<string> { "F" };
+
+            var requestBody = new CommandsRequest
+            {
+                startingPosition = position,
+                grid = grid,
+                commands = commands
+            };
+
+            var request = new RestRequest(Method.POST);
+            request.AddJsonBody(requestBody);
+
+            IRestResponse response = client.Execute(request);
+
+            Assert.Equal(500, (int)response.StatusCode);
+        }
+
         private Report GetReport(CommandsRequest requestBody)
         {
             var request = new RestRequest(Method.POST);
